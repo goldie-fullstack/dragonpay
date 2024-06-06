@@ -2,20 +2,23 @@
 
 import { useState } from 'react';
 import axios from 'axios';
+import logo from '../../public/dragonpay.webp'
+import Image from 'next/image';
 
 const Home = () => {
   const [formData, setFormData] = useState({
-    amount: 10,
-    description: 'My order description.',
-    email: 'goldie@fullstack.ph',
+    amount: '',
+    description: '',
+    email: '',
+    typeOfBank: ''
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/request-payment', formData);
@@ -27,34 +30,39 @@ const Home = () => {
         // Handle invalid response (e.g., display error message)
       }
     } catch (error) {
-      if (error.response) {
-        console.error('Error response from server:', error.response.data);
-      } else if (error.request) {
-        console.error('No response received from server:', error.request);
-      } else {
-        console.error('Error in setting up request:', error.message);
-      }
-      // Display appropriate error message to the user
+      console.error('Error processing payment:', error);
+      // Handle error (e.g., display error message)
     }
   };
 
+  const bankTyp = [
+    {
+      ProcName: 'Metrobank',
+      ProdId: 'MBTC'
+    },
+    {
+      ProcName: 'GCASH',
+      ProdId: 'GCSH'
+    }
+  ];
+  
   return (
     <div className='pt-8 w-1/2 block m-auto'>
-      <h1>Dragonpay Payment</h1>
-      <form onSubmit={handleSubmit}>
-        <div className='mb-6'>
+      <Image src={logo} alt='logo' width={350} className='m-auto block' />
+      <form className='border border-black w-1/2 m-auto p-6 mt-6' onSubmit={handleSubmit}>
+        <div className='mb-3'>
           <label className='block'>Amount:</label>
-          <input className='text-black' type="number" name="amount" value={formData.amount} onChange={handleChange} required />
+          <input className='block w-full text-black border border-black p-1' type="number" name="amount" value={formData.amount} onChange={handleChange} required />
         </div>
-        <div className='mb-6'>
+        <div className='mb-3'>
           <label className='block'>Description:</label>
-          <input className='text-black' type="text" name="description" value={formData.description} onChange={handleChange} required />
+          <input className='block w-full text-black border border-black p-1' type="text" name="description" value={formData.description} onChange={handleChange} required />
         </div>
-        <div className='mb-6'>
+        <div className='mb-3'>
           <label className='block'>Email:</label>
-          <input className='text-black' type="email" name="email" value={formData.email} onChange={handleChange} required />
+          <input className='block w-full text-black border border-black p-1' type="email" name="email" value={formData.email} onChange={handleChange} required />
         </div>
-        <button type="submit">Pay</button>
+        <button className='block w-full text-white p-1 bg-red-700 mt-6' type="submit">Pay</button>
       </form>
     </div>
   );
