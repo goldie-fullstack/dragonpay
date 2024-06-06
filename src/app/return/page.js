@@ -39,7 +39,7 @@ function ReturnPageContent() {
           <p>Transaction ID: {searchParams.get('txnid')}</p>
           <p>Reference Number: {searchParams.get('refno')}</p>
           <p>Status: {status}</p>
-          <p>Message: {message}</p>
+          <p>Message: {message}</p> 
         </div>
     </div>
   );
