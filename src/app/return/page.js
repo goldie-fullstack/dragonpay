@@ -34,7 +34,7 @@ function ReturnPageContent() {
   return (
     <div className='pt-8 w-1/2 block m-auto'>
       <Image src={logo} alt='logo' width={350} className='m-auto block' />
-        <div className='border border-black w-1/2 m-auto p-6 mt-6'>
+        <div className='border border-black w-72 md:w-96 m-auto p-6 mt-6'>
           <h1>Payment Status</h1>
           <p>Transaction ID: {searchParams.get('txnid')}</p>
           <p>Reference Number: {searchParams.get('refno')}</p>

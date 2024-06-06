@@ -47,9 +47,9 @@ const Home = () => {
   ];
   
   return (
-    <div className='pt-8 w-1/2 block m-auto'>
+    <div className='pt-8 w-full block m-auto'>
       <Image src={logo} alt='logo' width={350} className='m-auto block' />
-      <form className='border border-black w-1/2 m-auto p-6 mt-6' onSubmit={handleSubmit}>
+      <form className='border border-black w-72 md:w-96 m-auto p-6 mt-6' onSubmit={handleSubmit}>
         <div className='mb-3'>
           <label className='block'>Amount:</label>
           <input className='block w-full text-black border border-black p-1' type="number" name="amount" value={formData.amount} onChange={handleChange} required />
