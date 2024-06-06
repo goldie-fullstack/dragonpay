@@ -1,9 +1,18 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function ReturnPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ReturnPageContent />
+    </Suspense>
+  );
+}
+
+function ReturnPageContent() {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState('');
   const [message, setMessage] = useState('');
