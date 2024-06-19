@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req) {
   try {
-    const { amount, description, email, typeOfBank } = await req.json();
+    const { amount, description, email, typeOfBank, currency } = await req.json();
 
     const merchantId = process.env.NEXT_PUBLIC_DRAGONPAY_MERCHANT_ID;
     const password = process.env.DRAGONPAY_PASSWORD;
@@ -21,12 +21,12 @@ export async function POST(req) {
       Description: description,
       Email: email,
       ProcId: typeOfBank,
-      Currency: "PHP"
+      Currency: currency
     };
 
     const endpoint = `${baseUrl}/${txnid}/post`;
     // const endpoint = `${baseUrl}/Transaction/Create`;
- 
+   
     const response = await axios.post(endpoint, payload, {
       headers: {
         'Content-Type': 'application/json',

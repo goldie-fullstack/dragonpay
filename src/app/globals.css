@@ -26,3 +26,7 @@ body {
     text-wrap: balance;
   }
 }
+
+.border-drag-gray-300 {
+  border-color: rgba(235,235,235,var(--tw-border-opacity))
+}

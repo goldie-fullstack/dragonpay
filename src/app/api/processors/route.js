@@ -46,7 +46,7 @@ export async function GET(request) {
     // }
 
     // const processors = parsedData.ArrayOfProcessorInfo.ProcessorInfo.map(proc => ({
-      const processors = response.filter((x)=>['GCSB','PYMB','PYPL'].includes(x.procId)).map(proc => ({
+      const processors = response.filter((x)=>['GCSH','PYMB','PYPL'].includes(x.procId)).map(proc => ({
           procId: proc.procId,
           shortName: proc.shortName,
           longName: proc.longName,
