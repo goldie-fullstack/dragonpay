@@ -9,6 +9,27 @@ const nextConfig = {
     PASSWORD: process.env.PASSWORD,
     SECRET_KEY: process.env.SECRET_KEY,
   },
-};
-
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'test.dragonpay.ph',
+        port: '',
+        pathname: '/Bank/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'gw.dragonpay.ph',
+        port: '',
+        pathname: '/Bank/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'test.dragonpay.ph',
+        port: '',
+        pathname: '/images/**',
+      },
+    ]
+  }
+}; 
 export default nextConfig;

@@ -7,13 +7,17 @@ export const getAvailableProcessors = async () => {
     const password = process.env.DRAGONPAY_PASSWORD;
     const response = await axios.get(`https://test.dragonpay.ph/api/collect/v1/processors/`, {
       headers: {
-        'Accept': 'application/json',
-      },
-      auth: {
-        username: merchantId,
-        password: password
-      }
-    });
+        'Content-Type':'application/json',
+        Accept:'application/json'
+      }, 
+      // auth: {
+      //   username: merchantId,
+      //   password: password
+      // }
+    })
+   ;
+
+    console.log(response);
 
     console.log('Raw XML Response:', response.data);
 

@@ -20,13 +20,13 @@ export async function POST(req) {
       Amount: amount,
       Description: description,
       Email: email,
-      ProcId: typeOfBank 
+      ProcId: typeOfBank,
+      Currency: "PHP"
     };
 
-    const endpoint = `${baseUrl}/Transaction/Create`;
-
-    console.log('Payload:', payload);
-
+    const endpoint = `${baseUrl}/${txnid}/post`;
+    // const endpoint = `${baseUrl}/Transaction/Create`;
+ 
     const response = await axios.post(endpoint, payload, {
       headers: {
         'Content-Type': 'application/json',
@@ -36,9 +36,16 @@ export async function POST(req) {
         username: merchantId,
         password: password
       }
+    })
+    .then((res) => {
+      // console.log(res);
+      return res;
+    }).catch ((error)=> {
+      console.log(error);
+      throw error;
     });
 
-    console.log('Response from Dragonpay:', response.data);
+    console.log('Response from Dragonpay:', response);
 
     if (response.data.Status === 'S' || response.data.Url) {
       return NextResponse.json({ url: response.data.Url });
