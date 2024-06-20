@@ -30,3 +30,37 @@ body {
 .border-drag-gray-300 {
   border-color: rgba(235,235,235,var(--tw-border-opacity))
 }
+
+ details .summary-title {
+	 user-select: none;
+}
+
+details summary:hover {
+  cursor: pointer;
+}
+ details summary {
+	 list-style: none;
+}
+ details summary:focus {
+	 outline: none;
+}
+ details summary:hover .summary-chevron-up svg {
+	 opacity: 1;
+}
+ details .summary-chevron-up svg {
+	 opacity: 0.5;
+}
+ details .summary-chevron-up, details .summary-chevron-down {
+	 pointer-events: none;
+	 position: absolute;
+	 top: 0.75em;
+	 right: 1em;
+	 background: #fff;
+}
+ details .summary-chevron-up svg, details .summary-chevron-down svg {
+	 display: block;
+}
+ details summary::-webkit-details-marker {
+	 display: none;
+}
+ 
