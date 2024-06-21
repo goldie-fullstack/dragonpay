@@ -72,8 +72,7 @@ const Home = () => {
     }
   };
 
-  const checkKeyDown = (e) => {
-    // console.log('key down pressed');
+  const checkKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
     if (e.key === 'Enter') e.preventDefault();
   };
   
@@ -86,7 +85,7 @@ const Home = () => {
     }
   }
   
-  const togglePaymentType = (id: any) => (e) => {
+  const togglePaymentType = (id: any) => (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     e.preventDefault();
     setOpenPaymentType(id !== openPaymentType ? id : "");
   }
@@ -100,7 +99,9 @@ const Home = () => {
         </section>
 
         <section className="pb-12">
-          <form className='border border-black md:w-96 px-3	 m-auto p-6 mt-6 w-full border-.5 border-drag-gray-300 rounded-md divide-y-.5 divide-gray-300 bg-zinc-50' onKeyDown={(e) => checkKeyDown(e)} onSubmit={handleSubmit}>
+          <form className='border border-black md:w-96 px-3	 m-auto p-6 mt-6 w-full border-.5 border-drag-gray-300 rounded-md divide-y-.5 divide-gray-300 bg-zinc-50' 
+            onKeyDown={(e) => checkKeyDown(e)} onSubmit={handleSubmit}>
+
             <div className='mb-3'>
               <label className='uppercase mb-4 text-gray-800 text-sm'>Amount:</label>
               <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="number" name="amount" value={formData.amount} onChange={handleChange} required />
@@ -135,7 +136,7 @@ const Home = () => {
                     <details className="open:bg-zinc-50 bg-white shadow rounded group mb-4 mt-5" 
                     key={'0'} open={openPaymentType === '0'}>
                       <summary className="list-none flex flex-wrap items-center cursor-pointerfocus-visible:outline-none focus-visible:ring focus-visible:ring-pink-500 rounded group-open:rounded-b-none group-open:z-[1] relative"
-                       onClick={togglePaymentType('0')}>
+                       onClick={(e)=>{console.log(e);togglePaymentType('0')}}>
 
                         <h3 className="flex flex-1 p-4 text-gray-800 text-sm">E-Wallet</h3>
 
