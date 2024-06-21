@@ -136,7 +136,7 @@ const Home = () => {
                     <details className="open:bg-zinc-50 bg-white shadow rounded group mb-4 mt-5" 
                     key={'0'} open={openPaymentType === '0'}>
                       <summary className="list-none flex flex-wrap items-center cursor-pointerfocus-visible:outline-none focus-visible:ring focus-visible:ring-pink-500 rounded group-open:rounded-b-none group-open:z-[1] relative"
-                       onClick={(e)=>{console.log(e);togglePaymentType('0')}}>
+                       onClick={togglePaymentType('0')}>
 
                         <h3 className="flex flex-1 p-4 text-gray-800 text-sm">E-Wallet</h3>
 
