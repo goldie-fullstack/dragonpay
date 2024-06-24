@@ -17,7 +17,7 @@
 }
 
 body {
-  color: rgb(var(--background-end-rgb));
+  color: hsla( 0,0%,9% ,1);
   background: var(--foreground-rgb);
 }
 
