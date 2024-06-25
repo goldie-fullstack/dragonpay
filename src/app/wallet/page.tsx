@@ -139,7 +139,7 @@ const Wallet = () => {
 
                         </div>
                         <div className="flex flex-col items-start md:flex-row md:items-end">
-                            <p className="text-4xl font-bold ">{walletBalance}</p>
+                            <p className="text-4xl font-bold ">{walletBalance.toLocaleString("en-US", {style:"currency", currency:"PHP"})}</p>
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-5">
