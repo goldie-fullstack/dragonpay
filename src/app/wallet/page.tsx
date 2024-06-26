@@ -124,7 +124,7 @@ const Wallet = () => {
         </section>
 
         <section className="pb-12">
-            <h3 className='text-4xl font-bold'>Wallet</h3>
+            <h3 className='mb-3 text-4xl font-bold'>Wallet</h3>
             
             <div className="h-100 p-8 bg-white rounded-[20px] shadow-[0_15px_46px_rgba(0,0,0,0.05)]">
                 <div className="flex flex-col items-center h-full justify-between md:flex-row">
@@ -175,9 +175,9 @@ const Wallet = () => {
             
             {openModal &&
             <div className='fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-75 transition-opacity flex justify-center items-center'>
-                <div className='flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70'>
-                    <div className="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-700">
-                        <h3 className="font-bold text-red-500 dark:text-white">
+                <div className='flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto light:bg-neutral-800 light:border-neutral-700 dark:shadow-neutral-700/70'>
+                    <div className="flex justify-between items-center py-3 px-4 border-b light:border-neutral-700">
+                        <h3 className="font-bold text-red-500 light:text-white">
                             Send to {sendType == 'bank'?'Bank Account' :'E-wallet'}
                         </h3>
                         <button type="button" className="text-red-500 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" aria-label="Close" onClick={(e)=> handleModal('')} >
@@ -190,7 +190,7 @@ const Wallet = () => {
                     </div>
                     
                     <div className='p-6 pt-0'>
-                    <form className='md:w-96 px-3 m-auto p-6 mt-6 w-full border-.5 border-drag-gray-300 rounded-md divide-y-.5 divide-gray-300 bg-zinc-50' onKeyDown={(e) => checkKeyDown(e)} onSubmit={handleSubmit}>
+                    <form className='md:w-96 px-3 m-auto p-6 mt-3 w-full border-.5 border-drag-gray-300 rounded-md divide-y-.5 divide-gray-300 bg-zinc-50' onKeyDown={(e) => checkKeyDown(e)} onSubmit={handleSubmit}>
             
                         <div className='columns-3'>
                         <div className='mb-3'>
