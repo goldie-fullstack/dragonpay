@@ -4,6 +4,7 @@ import Image from 'next/image'
 import logo from '../../../public/dragonpay.webp';
 import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import axios from 'axios';
 
 interface PayoutProcessor {
     procId: string;
@@ -29,6 +30,7 @@ const Wallet = () => {
     }); 
     const [sendType, setSendType] = useState('');
     const [openModal, setModal] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
     const walletIds = ['GCSH','PYMY','GRPY','BITC','TYME','TRMY','TNIK','SPAY','SMRT'];
 
     const formFields = {
@@ -40,7 +42,6 @@ const Wallet = () => {
         description: '',
         procId: '',
         procDetail: '',
-        runDate: '',
         email: '',
         mobileNo: '',
         birthDate:'',//(optional)
@@ -56,7 +57,8 @@ const Wallet = () => {
     };
     
     const [formData, setFormData] = useState(formFields);
-    const [walletBalance, setWalletBalance] = useState(1000);
+    const [walletBalance, setWalletBalance] = useState(0);
+
 
     // console.log(selected);
     useEffect(() => {
@@ -77,7 +79,7 @@ const Wallet = () => {
         // setLoadingProcessors(false);
         setWalletBalance(balance);  
     };
-    // fetchBalance();
+    fetchBalance();
     }, []);
 
     const handleModal = (type: string) => {
@@ -104,9 +106,35 @@ const Wallet = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+ const handleListBox = (e: PayoutProcessor) => {
+    setSelected(e);
+    setFormData({ ...formData, procId: e.procId });
+ }
+
+ const mobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (sendType == 'wallet') {
+        setFormData({ ...formData, mobileNo:  e.target.value }) 
+    }
+ }
+//  
+  const requestPayout = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    setSubmitting(true); 
+    
+    try {
+        const response = await axios.post('/api/request-payout', formData);
+        console.log(response);
+        setSubmitting(false);
+        // const refNo = response.data;
+        // if (refNo) {
+        //     handleModal('');
+        //     console.log("Payout Reference No:", refNo);
+        // } else {
+        //   console.error('Invalid response from server:', response.data);
+        // }
+      } catch (error) {
+        console.error('Error processing payment:', error);
+      }
   };
 
   const checkKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
@@ -143,11 +171,6 @@ const Wallet = () => {
                         </div>
                     </div>
                     <div className="flex flex-wrap gap-5">
-
-                        {/* <button type="button" className="chakra-button css-1l7kpaq">
-                           Send to bank account</button>
-                        <button type="button" className="chakra-button css-1l7kpaq">
-                            Send to e-wallet</button> */}
 
                         <button type="button"
                         onClick={(e)=> handleModal('bank')} 
@@ -190,7 +213,7 @@ const Wallet = () => {
                     </div>
                     
                     <div className='p-6 pt-0'>
-                    <form className='md:w-96 px-3 m-auto p-6 mt-3 w-full border-.5 border-drag-gray-300 rounded-md divide-y-.5 divide-gray-300 bg-zinc-50' onKeyDown={(e) => checkKeyDown(e)} onSubmit={handleSubmit}>
+                    <form className='md:w-96 px-3 m-auto p-6 mt-3 w-full border-.5 border-drag-gray-300 rounded-md divide-y-.5 divide-gray-300 bg-zinc-50' onKeyDown={(e) => checkKeyDown(e)} onSubmit={requestPayout}>
             
                         <div className='columns-3'>
                         <div className='mb-3'>
@@ -210,25 +233,21 @@ const Wallet = () => {
                         </div>
                     
                         <div className='mb-3'>
-                        <label className='uppercase mb-4 text-gray-800 text-sm'>Amount:</label>
-                        <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="number" name="amount" value={formData.amount} onChange={handleChange} required />
+                            <label className='uppercase mb-4 text-gray-800 text-sm'>Amount:</label>
+                            <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="number" name="amount" value={formData.amount} onChange={handleChange} required />
                         </div>
                         <div className='mb-3'>
-                        <label className='uppercase mb-4 text-gray-800 text-sm'>Description:</label>
-                        <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="text" name="description" value={formData.description} onChange={handleChange} required />
+                            <label className='uppercase mb-4 text-gray-800 text-sm'>Description:</label>
+                            <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="text" name="description" value={formData.description} onChange={handleChange} required />
                         </div>
                         <div className='mb-3'>
-                        <label className='uppercase mb-4 text-gray-800 text-sm'>Email:</label>
-                        <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="email" name="email" value={formData.email} onChange={handleChange} required />
+                            <label className='uppercase mb-4 text-gray-800 text-sm'>Email:</label>
+                            <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="email" name="email" value={formData.email} onChange={handleChange} required />
                         </div>
-                        <div className='mb-3'>
-                        <label className='uppercase mb-4 text-gray-800 text-sm'>Mobile No.:</label>
-                        <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="number" name="mobileNo" value={formData.mobileNo} onChange={handleChange} required />
-                        </div>
-
+                        
                         <div className='mb-3'>
                             <label className="uppercase mb-4 text-gray-800 text-sm">{sendType == 'bank'? 'Bank Name': 'E-wallet'}</label>
-                            <Listbox value={selected} onChange={setSelected}>
+                            <Listbox value={selected} onChange={handleListBox} >
                             {({ open }) => (
                                 <>
                                 {/* <Label className="block text-sm font-medium leading-6 text-gray-900">Assigned to</Label> */}
@@ -288,6 +307,19 @@ const Wallet = () => {
                             </Listbox>
                            
                         </div>
+
+                        <div className='mb-3'>
+                            <label className='uppercase mb-4 text-gray-800 text-sm'>{sendType == 'wallet' ? 'Mobile No': 'Account No'}.:</label>
+                            <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="number" name="procDetail" value={formData.procDetail} onChange={handleChange} onBlur={mobileChange} required />
+                        </div>
+
+                        {/* button */}
+                        <div className="pt-4 flex justify-center">
+                            <button
+                                type="submit" className="flex items-center justify-center text-base font-semibold h-10 rounded px-4 border transition outline-none !text-white bg-red-500 text-secondary border-secondary hover:brightness-110 hover:!bg-secondary focus:brightness-110 focus:ring-2 ring-secondary w-48">
+                                Pay Now
+                            </button>
+                        </div>    
                     </form>
                     </div> 
                 </div>
