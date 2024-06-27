@@ -17,7 +17,7 @@
 }
 
 body {
-  color: rgb(var(--background-end-rgb));
+  color: hsla( 0,0%,9% ,1);
   background: var(--foreground-rgb);
 }
 
@@ -26,7 +26,36 @@ body {
     text-wrap: balance;
   }
 }
-
+.css-wallet-container {
+  width: 100%;
+    -webkit-margin-start: auto;
+    margin-inline-start: auto;
+    -webkit-margin-end: auto;
+    margin-inline-end: auto;
+    max-width: 1440px;
+    -webkit-padding-start: 1.5rem;
+    padding-inline-start: 1.5rem;
+    -webkit-padding-end: 1.5rem;
+    padding-inline-end: 1.5rem;
+    /* padding-top: 61px; */
+}
+@media screen and (min-width: 960px) {
+  .css-wallet-container {
+      -webkit-padding-start: 120px;
+      padding-inline-start: 120px;
+      -webkit-padding-end: 120px;
+      padding-inline-end: 120px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .css-wallet-container {
+      -webkit-padding-start: 2.5rem;
+      padding-inline-start: 2.5rem;
+      -webkit-padding-end: 2.5rem;
+      padding-inline-end: 2.5rem;
+      /* padding-top: 110px; */
+  }
+}
 .border-drag-gray-300 {
   border-color: rgba(235,235,235,var(--tw-border-opacity))
 }
