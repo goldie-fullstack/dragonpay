@@ -14,7 +14,7 @@ export async function GET(request) {
       throw new Error('Missing environment variables');
     } 
     
-    const endpoint = `${baseUrl}/v1/${merchantId}/balance`;
+    const endpoint = `${baseUrl}/${merchantId}/balance`;
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${apiKey}`;
     const response = await axios.get(endpoint, {
