@@ -57,23 +57,10 @@ const Wallet = () => {
     
     const [formData, setFormData] = useState(formFields);
     const [walletBalance, setWalletBalance] = useState(1000);
-
-    const fetchIp = async() => {
-        try {
-            const response = await fetch("https://api.ipify.org/");
-            const data = await response.text();
-            console.log(data);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-  
-
+ 
     // console.log(selected);
     useEffect(() => {
-
-      
-        fetchIp();
+ 
         const fetchProcessors = async () => {
             // setLoadingProcessors(true);
             const res = await fetch('/api/payout-processors');
