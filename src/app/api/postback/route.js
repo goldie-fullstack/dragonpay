@@ -1,15 +1,20 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 
-export async function POST(req) {
+export async function GET(req) {
   try {
-    const { txnid, refno, status, message, digest } = await req.json();
+    // const { txnid, refno, status, message, digest } = await req.json();
+    const txnid = req.nextUrl.searchParams.get('txnid');
+    const refno = req.nextUrl.searchParams.get('refno');
+    const status = req.nextUrl.searchParams.get('status');
+    const message = req.nextUrl.searchParams.get('message');
+    const digest = req.nextUrl.searchParams.get('digest'); 
     const merchantPassword = process.env.DRAGONPAY_PASSWORD;
 
     // Validate the digest
     const computedDigest = crypto
       .createHash('sha1')
-      .update(`${txnid}:${refno}:${status}:${merchantPassword}`)
+      .update(`${txnid}:${refno}:${status}:${message}:${merchantPassword}`)
       .digest('hex');
 
     if (computedDigest !== digest) {
