@@ -3,12 +3,11 @@ import axios from 'axios';
 import { NextResponse } from 'next/server';
 
 export async function GET(req) {
+  const { searchParams } = new URL(req.url);
+  const startDate = searchParams.get('startdate');
+  const endDate = searchParams.get('enddate');
+  
   try {
-    const { searchParams } = new URL(req.url);
-    const startDate = searchParams.get('startdate');
-    const endDate = searchParams.get('enddate');
-
-
     const merchantId = process.env.NEXT_PUBLIC_DRAGONPAY_MERCHANT_ID;
     const password = process.env.DRAGONPAY_PASSWORD;
     const baseUrl = process.env.DRAGONPAY_TEST_BASE_URL;

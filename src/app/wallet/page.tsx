@@ -25,19 +25,30 @@ interface PayoutResponse {
     error?: string;
 }
 
+interface Transaction {
+    RefNo: string;
+    ProcId: string;
+    RefDate: string | Date;
+    Email: string;
+    Status: StatusKeys;
+    Amount: string | number;
+}
+
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-const status = {
+type StatusKeys = 'S' | 'F' | 'P' | 'H' | 'G' | 'V' | 'U';
+
+const status: { [key in StatusKeys]: string } = {
     S: 'Success',
     F: 'Failed',
     P: 'Pending',
-    H: 'On hold',
-    G: 'In progress',
-    V: 'Voided',
-    U: 'Unfinished'
-}
+    H: 'On Hold',
+    G: 'Processing',
+    V: 'Verified',
+    U: 'Unknown'
+};
 
 const Wallet = () => {
     const [processors, setProcessors] = useState<PayoutProcessor[]>([]); 
@@ -477,7 +488,7 @@ const Wallet = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            { transactions.length > 0 && transactions[page].map((transaction: any) => (
+                            { transactions.length > 0 && transactions[page].map((transaction: Transaction) => (
                                 <tr key={transaction.RefNo}>
                                     <th>{transaction.RefNo}</th>
                                     <th>{transaction.ProcId}</th>
