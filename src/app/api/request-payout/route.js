@@ -94,12 +94,33 @@ export async function POST(req) {
       throw error;
     });
 
-    console.log('Response from Dragonpay:', response);
+    console.log('Response from Dragonpay:', response.data);
     
     if (response.data.Code === 0) {
-      return NextResponse.json({refNo:response.data.Message});// Payout Reference No
+      return NextResponse.json({ 
+        refNo: response.data.Message,
+        txnid: txnid,
+        name: `${firstName} ${middleName} ${lastName}`,
+        email: email,
+        number: mobileNo,
+        amount: amount,
+        bank: procId
+       });// Payout Reference No
     } else {
-      throw new Error('Payout request failed');
+      let message = 'Payout request failed'
+
+      switch(response.data.Code) {
+        case -4: message = 'Unable to create a payout transaction'; break;
+        case -5: message = 'Invalid payout account details'; break;
+        case -6: message = 'Cannot accept a pre-dated run date'; break;
+        case -7: message = 'Amount limited exceeded'; break;
+        case -8: message = 'Similar transaction id already exists'; break;
+        case -9: message = 'Server IP access is not allowed'; break;
+        case -10: message = 'Payout account is blacklisted'; break;
+        case -11: message = 'Payout account is not enrolled for bank'; break;
+      }
+      
+      throw new Error(message);
     }
    
   } catch (error) {

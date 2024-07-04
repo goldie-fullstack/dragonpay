@@ -5,10 +5,10 @@ import { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
     const {pathname, searchParams} = request.nextUrl;
 
-    console.log('Middleware');
+    // console.log('Middleware');
     // console.log(request.method);
     // console.log(request.url);
-    console.log(pathname);
+    // console.log(pathname);
 
     // retrieve the current response
     const res = NextResponse.next()
