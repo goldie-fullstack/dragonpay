@@ -107,10 +107,6 @@ const Home = () => {
               <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="number" name="amount" value={formData.amount} onChange={handleChange} required />
             </div>
             <div className='mb-3'>
-              <label className='uppercase mb-4 text-gray-800 text-sm'>Description:</label>
-              <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="text" name="description" value={formData.description} onChange={handleChange} required />
-            </div>
-            <div className='mb-3'>
               <label className='uppercase mb-4 text-gray-800 text-sm'>Email:</label>
               <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="email" name="email" value={formData.email} onChange={handleChange} required />
             </div>

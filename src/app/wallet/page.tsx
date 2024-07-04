@@ -29,6 +29,16 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
+const status = {
+    S: 'Success',
+    F: 'Failed',
+    P: 'Pending',
+    H: 'On hold',
+    G: 'In progress',
+    V: 'Voided',
+    U: 'Unfinished'
+}
+
 const Wallet = () => {
     const [processors, setProcessors] = useState<PayoutProcessor[]>([]); 
     const [filteredProcessors, setFilteredProcessors] = useState<PayoutProcessor[]>([]);  
@@ -316,10 +326,6 @@ const Wallet = () => {
                                 <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="number" name="amount" value={formData.amount} onChange={handleChange} required />
                             </div>
                             <div className='mb-3'>
-                                <label className='uppercase mb-4 text-gray-800 text-sm'>Description:</label>
-                                <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="text" name="description" value={formData.description} onChange={handleChange} required />
-                            </div>
-                            <div className='mb-3'>
                                 <label className='uppercase mb-4 text-gray-800 text-sm'>Email:</label>
                                 <input className='block w-full text-gray-900 border border-gray-200 p-1 rounded-md' type="email" name="email" value={formData.email} onChange={handleChange} required />
                             </div>
@@ -426,7 +432,6 @@ const Wallet = () => {
                                 
                                 <div className='w-full'>
                                     <p>Ref No: { returnPayout.refNo }</p>
-                                    <p>TXN ID: { returnPayout.txnid }</p>
                                     <p>Name: { returnPayout.name }</p>
                                     <p>Email: { returnPayout.email }</p>
                                     <p>Bank: { returnPayout.bank }</p>
@@ -464,25 +469,21 @@ const Wallet = () => {
                         <thead>
                             <tr>
                                 <th>Ref No.</th>
-                                <th>TXN ID</th>
                                 <th>Bank</th>
                                 <th>Date</th>
                                 <th>Email</th>
                                 <th>Status</th>
-                                <th>Description</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
                         <tbody>
-                            { transactions[page].length > 0 && transactions[page].map((transaction: any) => (
+                            { transactions.length > 0 && transactions[page].map((transaction: any) => (
                                 <tr key={transaction.RefNo}>
                                     <th>{transaction.RefNo}</th>
-                                    <th>{transaction.TxnId}</th>
                                     <th>{transaction.ProcId}</th>
                                     <th>{formatDate(transaction.RefDate)}</th>
                                     <th>{transaction.Email}</th>
-                                    <th>{transaction.Status}</th>
-                                    <th>{transaction.Description}</th>
+                                    <th>{status[transaction.Status]}</th>
                                     <th>{transaction.Amount}</th>
                                 </tr>
                             ))}
