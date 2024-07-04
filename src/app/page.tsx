@@ -19,7 +19,7 @@ interface Processor {
 const Home = () => {
   const [formData, setFormData] = useState({
     amount: '',
-    description: '',
+    description: 'description',
     email: '',
     typeOfBank: '',
     currency: 'PHP'
@@ -58,6 +58,7 @@ const Home = () => {
       return;
     } 
     try {
+      console.log(formData)
       const response = await axios.post('/api/request-payment', formData);
       // console.log(response);
       setSubmitting(false);

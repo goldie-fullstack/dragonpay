@@ -73,7 +73,7 @@ const Wallet = () => {
         lastName: '',
         amount: '',
         currency: 'PHP',
-        description: '',
+        description: 'description',
         procId: '',
         procDetail: '',
         email: '',
