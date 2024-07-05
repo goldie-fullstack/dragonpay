@@ -26,12 +26,12 @@ interface PayoutResponse {
 }
 
 interface Transaction {
-    RefNo: string;
-    ProcId: string;
-    RefDate: string | Date;
-    Email: string;
-    Status: StatusKeys;
-    Amount: string | number;
+    refNo: string;
+    procId: string;
+    refDate: string | Date;
+    email: string;
+    status: StatusKeys;
+    amount: string | number;
 }
 
 function classNames(...classes: any) {
@@ -139,7 +139,7 @@ const Wallet = () => {
     useEffect(() => {
         const fetchTransactions = async () => {
             const response = await axios.get(`/api/transactions?startdate=${dates.startDate}&enddate=${dates.endDate}`);
-            console.log(response)
+            console.log(response.data, 'Data')
             if (response.status === 200) {
                 setTFetching(false)
                 const paginatedTransactions = chunkArray(response.data, 10);
@@ -228,7 +228,7 @@ const Wallet = () => {
                 console.log("Payout Reference No:", data);
                 setModal(!openModal);
             }
-            
+            setDates({ startDate: formatDate(new Date()), endDate: formatDate(new Date()) })
         } else {
           console.error('Invalid response from server:', response.data);
         }
@@ -489,13 +489,13 @@ const Wallet = () => {
                         </thead>
                         <tbody>
                             { transactions.length > 0 && transactions[page].map((transaction: Transaction) => (
-                                <tr key={transaction.RefNo}>
-                                    <th>{transaction.RefNo}</th>
-                                    <th>{transaction.ProcId}</th>
-                                    <th>{formatDate(transaction.RefDate)}</th>
-                                    <th>{transaction.Email}</th>
-                                    <th>{status[transaction.Status]}</th>
-                                    <th>{transaction.Amount}</th>
+                                <tr key={transaction.refNo}>
+                                    <th>{transaction.refNo}</th>
+                                    <th>{transaction.procId}</th>
+                                    <th>{formatDate(transaction.refDate)}</th>
+                                    <th>{transaction.email}</th>
+                                    <th>{status[transaction.status]}</th>
+                                    <th>{transaction.amount}</th>
                                 </tr>
                             ))}
                             
