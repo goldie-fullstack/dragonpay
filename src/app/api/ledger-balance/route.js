@@ -37,9 +37,9 @@ export async function GET(request) {
 
     //  console.log(response); 
 
-    return  new Response(processors);
-    const balance = 1000;
-    return NextResponse.json(balance);
+    // return  new Response(processors);
+    // const balance = 1000;
+    // return NextResponse.json(balance);
     return NextResponse.json(response);
 
   } catch (error) {

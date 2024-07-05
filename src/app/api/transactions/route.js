@@ -6,6 +6,8 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const startDate = searchParams.get('startdate');
   const endDate = searchParams.get('enddate');
+
+  console.log(startDate)
   
   try {
     const merchantId = process.env.NEXT_PUBLIC_DRAGONPAY_MERCHANT_ID;
