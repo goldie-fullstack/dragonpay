@@ -250,6 +250,43 @@ const Home = () => {
                         </ul>
                       </div>
                     </details>
+                    <details className="open:bg-zinc-50 bg-white shadow rounded group mb-4"
+                    key={'3'} open={openPaymentType === '3'} >
+                    
+                      <summary className=" list-none flex flex-wrap items-center cursor-pointer
+    focus-visible:outline-none focus-visible:ring focus-visible:ring-pink-500
+    rounded group-open:rounded-b-none group-open:z-[1] relative" onClick={togglePaymentType('3')}>
+                      
+                      <h3 className="flex flex-1 p-4 text-gray-800 text-sm">Over the Counter</h3>
+                      <div className="summary-chevron-up group-open:rotate-180 group-open:origin-center transition-transform transition-all " >
+                          <svg viewBox="0 0 24 24" fill="none"    className="transition-transform duration-200 w-6 h-6  stroke-2 stroke-current stroke-linejoin stroke-linecap"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div> 
+
+                      </summary>
+                      
+                      <div className='summary-content px-10 pt-0 pb-3 sm:px-0 sm:py-3 flex justify-center'>
+                      
+                      <ul className="w-full flex flex-wrap sm:-mx-2">
+                        {processors.length === 0 ? (
+                        <> <li className='sm:px-0.5 w-full sm:w-1/3 sm:pb-4 text-gray-800 '>No processors available.</li></>
+                        ) : (
+                          processors.filter((x)=>['SBCB', 'VLRC', 'TBTG'].includes(x.procId)).map((item, index) => (
+                            
+                          <li className="sm:px-0.5 w-full sm:w-1/3 sm:pb-4" key={index} >
+                            <button 
+                            className='w-full group p-1.5 sm:p-0 flex items-center space-x-3 text-left focus:bg-gray-300 border-drag-gray-300  transition-colors outline-none'
+                              onClick={(e) => {setFormData({ ...formData, typeOfBank: item.procId });handleSubmit}} >
+                                <div className={activeButtonIndex === item.procId ? "flex items-center justify-center border border-red-500 sm:rounded ring-red-200 transition px-3 h-10 sm:h-24 w-20 sm:w-full space-y-1.5 bg-white hover:border-red-500 sm:group-focus:ring-2": "flex items-center justify-center border border-drag-gray-300 sm:rounded ring-red-200 transition px-3 h-10 sm:h-24 w-20 sm:w-full space-y-1.5 bg-white hover:border-red-500 sm:group-focus:ring-2"}>
+                                  <Image src={item.logo} alt={item.shortName} width={100} height={100} key={index}  className='object-contain h-5 sm:h-12' />
+                              </div> 
+                              <span className="sm:hidden text-base text-gray-800 flex-1">{item.shortName}</span>
+                            </button>
+                            </li>
+                          ))
+                        )}
+                        </ul>
+                      </div>
+                    </details>
                   </>
                    
                 }  

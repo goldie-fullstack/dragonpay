@@ -12,31 +12,33 @@ export async function GET(req) {
   try {
     const merchantId = process.env.NEXT_PUBLIC_DRAGONPAY_MERCHANT_ID;
     const password = process.env.DRAGONPAY_PASSWORD;
-    const baseUrl = process.env.DRAGONPAY_TEST_BASE_URL;
-   
+    const apiKey = process.env.DRAGONPAY_APIKEY;
+    const baseUrl = process.env.DRAGONPAY_PAYOUT_TEST_URL;
+
     if (!merchantId || !password || !baseUrl) {
       throw new Error('Missing environment variables');
     }
+    
+    const endpoint = `${baseUrl}/${merchantId}/transactions/${startDate}/${endDate}`;
 
-    const endpoint = `${baseUrl}/transactions?startdate=${startDate}&enddate=${endDate}`;
+    console.log(endpoint)
 
     const response = await axios.get(endpoint, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-      },
-      auth: {
-        username: merchantId,
-        password: password
+        'Authorization': `Bearer ${apiKey}`
       }
     })
+
+    console.log(response)
     
     if (response.status === 200) {
         return NextResponse.json(response.data);
     }
    
   } catch (error) {
-    // console.error('Error processing payment:', error);
+    console.error('Error processing payment:', error);
     let status;
     if (error.status)
       status = error.status;

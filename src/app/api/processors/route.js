@@ -48,7 +48,7 @@ export async function GET(request) {
     // const processors = parsedData.ArrayOfProcessorInfo.ProcessorInfo.map(proc => ({
       // e-wallet 'GCSH','PYMB','PYPL'
       // direct banks 'BPIA','UBDD','RCDD','CBDD'
-      const processors = response.filter((x)=>['GCSH','PYMB','PYPL','CC','BPIA','UBDD','RCDD','CBDD'].includes(x.procId)).map(proc => ({
+      const processors = response.filter((x)=>['GCSH','PYMB','PYPL','CC','BPIA','UBDD','RCDD','CBDD', 'SBCB', 'VLRC', 'TBTG'].includes(x.procId)).map(proc => ({
           procId: proc.procId,
           shortName: proc.shortName,
           longName: proc.longName,
