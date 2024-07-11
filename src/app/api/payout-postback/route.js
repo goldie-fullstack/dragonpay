@@ -1,14 +1,17 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto'; 
+import qs from 'qs'
 
-export async function GET(req) {
+export async function POST(req) {
   try { 
-    // const { txnid, refno, status, message, digest } = await req.json();
-    const txnid = req.nextUrl.searchParams.get('merchanttxnid');
-    const refno = req.nextUrl.searchParams.get('refno');
-    const status = req.nextUrl.searchParams.get('status');
-    const message = req.nextUrl.searchParams.get('message');
-    const digest = req.nextUrl.searchParams.get('digest'); 
+    const paramsText = decodeURIComponent(await req.text())
+    const paramsJson = qs.parse(paramsText)
+
+    const txnid = paramsJson?.txnid;
+    const refno = paramsJson?.refno;
+    const status = paramsJson?.status;
+    const message = paramsJson?.message;
+    const digest = paramsJson?.digest; 
    
     const merchantPassword = process.env.DRAGONPAY_PASSWORD;
 
@@ -16,7 +19,7 @@ export async function GET(req) {
     const computedDigest = crypto
       .createHash('sha1')
       .update(`${txnid}:${refno}:${status}:${message}:${merchantPassword}`)
-      .digest('hex');
+      .digest('hex').toString();
 
     if (computedDigest !== digest) {
       console.error('Invalid digest');
